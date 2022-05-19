@@ -1,9 +1,14 @@
-import os
+import sys
+from helper import *
 
-class Zeon:
+_, command, *args = sys.argv
+# print(sys.argv)
 
-    command = input('Print a particular command: ')
+# args = ''.join(args)
+if command in commands.keys():
+    check_args(args)
+    commands[command](*args)
+else:
+    print('command not found')
 
-    commands = {
-        'add' :
-    }
+
