@@ -1,4 +1,5 @@
 import os
+import filecmp
 from pathlib import Path
 
 from helper import init, add_file, list_files, del_file, get_file
@@ -33,7 +34,9 @@ def test_get_file():
     name = 'test.txt'
     get_path = os.getcwd() + '/ModelDecomposition.txt'
     assert get_file(name, get_path) == True
+    file1 = name
+    file2 = 'ModelDecomposition.txt'
+    comp = filecmp.cmp(file1, file2, shallow=True)
+    assert comp is True
     os.remove(name)
-
-
 
