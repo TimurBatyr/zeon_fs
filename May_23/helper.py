@@ -49,6 +49,3 @@ commands = {
     'del': del_file,
     'get': get_file,
 }
-
-dir_path = '.'
-print(os.listdir(dir_path))
