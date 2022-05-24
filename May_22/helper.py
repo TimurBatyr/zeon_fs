@@ -11,11 +11,11 @@ def check_args(args, *arg):
 
 
 def init(*args):
-    if os.path.exists(os.getcwd() + '/zeon_fs'):
+    if os.path.exists(os.getcwd() + '/zeon_fs_v1'):
         print("Directory exists")
         return None
 
-    os.mkdir('zeon_fs')
+    os.mkdir('')
 
 
 def add_file(path, *args):

@@ -1,4 +1,3 @@
-import sys
 from helper import *
 
 _, command, *args = sys.argv

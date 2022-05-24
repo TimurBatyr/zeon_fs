@@ -1,0 +1,30 @@
+#Моделирование:
+    Directory
+    FIle
+        file_name
+
+
+#Декомпозиция:
+    dir_name = zeon_sf
+
+    init_fs(dir_name: str) -> None: 
+        create directory(dir_name)
+    add_file(file_name:str) -> None: 
+        if not check_file(dir_path+file_name)
+        else copy file in directory to dir_name and save that file with file_name name
+    delete_file(file_name: str) -> None: 
+        if not check_file(dir_path+file_name)
+        else delete file in dir_name
+    get_file(file_name: str, file_path: str) -> None: 
+        if not check_file(dir_path+file_name)
+        else create file - file_name
+    list_file(directory_path: str) -> None: 
+        return file list in directory_path
+
+
+    check_file(path: str) -> bool: 
+        if file not exists in path
+            print(”File not exists”)
+            return False
+        return True
+
