@@ -1,0 +1,134 @@
+_______________________________Моделирование____________________________
+#Моделирование:
+    FS
+    FIle
+        file_name
+        file_hash
+    DB
+        by_hash - by_name
+        list_file_hashes
+        list_file_names
+_______________________________Декомпозиция_____________________________
+    # fs.init_fs
+    # db.init_db
+
+    # file.hash_file
+
+    # db.get_by_key_from_index
+
+    # db.add_to_database
+    # db.delete_from_database
+
+    # file.add_file
+    # file.delete_file
+    # file.get_file
+
+    # fs.list_files
+_______________________________Algorithm__________________________________
+    fs_base_path = .zeon_fs
+    ФС = Файловая система
+
+    init_fs: -> None
+    Инициализация файловой системы
+       Если директория уже найдена
+            Ничего не делаем
+        Иначе
+            Создаем директорию
+
+    checking_database: -> bool
+    Проверка целостности БД
+        Если в БД нет
+            Добавление в БД
+        Если в ФС нет
+            Перезапись БД
+
+    init_db: -> None
+    Инициализация базы данных
+        Если база данных найдена:
+            Ничего не делаем
+        Иначе
+            Создать базу данных в директории fs_base_path
+
+    hash_file: -> str
+    Хеширование  файла
+        Вернет хеш файла
+
+    get_by_key_from_index: -> str
+    Получение значения с помощью ключа по индексу
+        Если индекс есть в индексе бд
+            Если ключ есть в бд[индекс]
+                Вернет значение
+            Иначе
+                Ничего не делает
+        Иначе
+            Ничего не делает
+
+
+    add file: -> bool
+    Добавление файла в ФС
+        Получаем хеш функцию от переданного файла
+        Если хеш присутствует в индексе бд то
+            Ничего не делаем
+        Иначе
+            Добавляем в файл
+            Добавляем в базу
+
+    delete_file: -> bool
+    Удаление файла из ФС
+        Если название присутствует в индексе бд
+            Удаляем из БД
+            Удаляем из ФС
+        Иначе
+            Ничего не делаем
+
+    get_file: -> bool
+    Копирования файла
+        Если название присутствует или хеш в бд
+            Ничего не делаем
+        Иначе
+            Копируем файл и переносим в ФС
+
+
+     list_files: -> list
+     Список файлов ФС
+         Получить названия из БД1
+         Вернем список названий
+
+_______________________________Tests______________________________________
+
+Test init_fs
+Тест файловой системы
+    случай: инициализировать существующий ФС
+    ожидаемый результат: ничего не меняется
+
+    случай: инициализировать несуществующий ФС
+    ожидаемый результат: создается ФС
+
+
+
+Test init_db
+    try to init dir with  db
+    try to init dir WITHOUT  db
+
+Test check_hash
+    try to check NOT existing hash in db
+    try to check existing hash in db
+
+
+Test add_file
+    try to to add file whose hash in db
+    try to to add file whose hash NOT in db
+
+
+Test delete_file
+    try to delete existing file
+    try to delete Not existing file
+
+
+Test get_file
+    try to get from incorrect path
+    try to get from correct path
+    try to check file content (are they same)
+
+Test listf
+    test list some directory's files
