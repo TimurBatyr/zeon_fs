@@ -29,33 +29,35 @@ def test_add_file():
         assert Path(f'{target_path}/{file}').is_file()
 
 
-# def test_hash_files():
-#     for file in test_files:
-#         assert hash_file(file) == ''
-#     assert hash_file(f'{source_path}/file1.txt') == files_hashes['file1.txt']
-#
-#
-# def test_add_to_db():
-#     for file, file_hash in files_hashes.items():
-#         add_to_db(file, file_hash)
-#         assert get_by_key_from_index(DB_BY_NAME, file) == file_hash
-#         assert get_by_key_from_index(DB_BY_HASH, file_hash) == file
-#
-#
-# def test_delete_file():
-#     for file in test_files:
-#         assert delete_file(f'{target_path}/{file}')
-#         assert not Path(f"{target_path}/{file}").is_file()
-#
-#
-# def test_list_files():
-#     dir_path = f'./{target_path}'
-#     expected = os.listdir(dir_path)
-#     for i in range(len(expected)):
-#         assert list_files()[i] == expected[i]
+def test_hash_files():
+    for file in test_files:
+        assert hash_file(file) == ''
+    assert hash_file(f'{source_path}/file1.txt') == files_hashes['file1.txt']
 
 
-# def test_get_file():
-#     for num, file in enumerate(test_files):
-#         assert get_file(f"{source_path}/{file}", f"{num}.{file}", target_path)
-#         assert Path(f"{target_path}/{num}.{file}").is_file()
+def test_add_to_db():
+    for file, file_hash in files_hashes.items():
+        add_to_db(file, file_hash)
+        assert get_by_key_from_index(DB_BY_NAME, file) == file_hash
+        assert get_by_key_from_index(DB_BY_HASH, file_hash) == file
+
+
+def test_delete_file():
+    for file in test_files:
+        assert delete_file(f'{target_path}/{file}')
+        assert not Path(f"{target_path}/{file}").is_file()
+
+
+def test_list_files():
+    dir_path = f'./{target_path}'
+    expected = os.listdir(dir_path)
+    for i in range(len(expected)):
+        assert list_files()[i] == expected[i]
+
+
+def test_get_file():
+    for num, file in enumerate(test_files, 1):
+        assert get_file(f'{source_path}/{file}', f'{num}-{file}')
+        assert Path(f'{target_path}/{num}-{file}').is_file()
+        assert delete_file(f'{target_path}/{num}-{file}')
+        assert not Path(f'{target_path}/{num}-{file}').is_file()

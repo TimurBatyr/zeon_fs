@@ -11,14 +11,11 @@ DB_BY_NAME = 'BY_NAME'
 DB_BY_HASH = 'BY_HASH'
 DB_START_DATA = {DB_BY_NAME: {}, DB_BY_HASH: {}}
 
-def init_app():
-    init_fs()
-    init_db()
-
 
 def init_fs(dir_name: str = BASE_DIR_PATH, *args, **kwargs) -> None:
     os.makedirs(dir_name, exist_ok=True)
     print('FS initialized')
+    init_db()
 
 
 def init_db(*args, **kwargs) -> None:
@@ -46,10 +43,8 @@ def copy_file(file_path: str, file_name: str = None, *args, **kwargs) -> bool:
 def add_file(file_path: str, *args, **kwargs) -> bool:
     if not Path(file_path).exists():
         return False
-    # file_name = Path(file_path).name
-    # file_hash = hash_file(file_path)
+
     copy_file(file_path)
-    # add_to_db(file_name, file_hash)
     return True
 
 
@@ -93,6 +88,7 @@ def check_in_db(file_name: str, file_hash: str) -> bool:
 def delete_file(file_path: str, *args, **kwargs) -> bool:
     if not Path(file_path).is_file():
         return False
+
     delete_from_db(file_name=Path(file_path).name, file_hash=hash_file(file_path))
     os.remove(file_path)
     return True
@@ -115,14 +111,12 @@ def list_files(*args, **kwargs) -> list:
     return files_list
 
 
+def get_file(file_path: str, file_name: str, *args, **kwargs) -> bool:
+    if not Path(file_path).is_file():
+        return False
 
-
-# def get_file(file_path: str, file_name: str, dir_name: str, *args, **kwargs) -> bool:
-#     if not Path(file_path).is_file():
-#         return False
-#     shutil.copyfile(file_path, f"{dir_name}/{file_name}")
-#     return True
-
+    copy_file(file_path, file_name)
+    return True
 
 
 commands = {
@@ -130,5 +124,5 @@ commands = {
     'add': add_file,
     'del': delete_file,
     'list': list_files,
-    # 'get': get_file,
+    'get': get_file,
 }
